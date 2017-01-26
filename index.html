@@ -3,10 +3,72 @@
   <head>
     <meta charset="utf-8">
     <title>CUVR</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
         <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+        <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
   </head>
   <body>
-  	<h3>cuvr - welcome to the show</h3>
-    <a href="vr.html">Click here to load VR</a>
+
+    <div class="flex-center">
+      <pre><code>
+╭──────────────────────────────────────────────────────────────╮
+│ ◎ ○ ○ ░░░░░░░░░░░░░ CUVR --bash-- 90x50  ░░░░░░░░░░░░░░░░░░░░│
+├──────────────────────────────────────────────────────────────┤
+│ Last login: Tue Jan 24 23:17:35 on ttys000                   │
+<div id="js-terminal" class="terminal" contenteditable="true"></div>
+└──────────────────────────────────────────────────────────────┘</code></pre>
+    </div>
+
+
+    <script>
+
+    var term = $('#js-terminal');
+    var caret;
+
+    function placeCaretAtEnd(el) {
+      el.focus();
+      if (typeof window.getSelection != "undefined"
+          && typeof document.createRange != "undefined") {
+          var range = document.createRange();
+          range.selectNodeContents(el);
+          range.collapse(false);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+      } else if (typeof document.body.createTextRange != "undefined") {
+          var textRange = document.body.createTextRange();
+          textRange.moveToElementText(el);
+          textRange.collapse(false);
+          textRange.select();
+      }
+    };
+
+    function getInput(){
+      var text = term.html();
+      var input = text.substring(caret);
+      return input;
+    }
+
+    $(document).ready(function(){
+      term.text('CUVRdev-MacBook-Pro:~ CamlBois$ ');
+      placeCaretAtEnd( document.getElementById("js-terminal") );
+      caret = term.html().length;
+    });
+
+
+    term.on("keypress", function(e) {
+        if (e.keyCode == 13) {
+          var input = getInput();
+          term.append('\nCUVRdev-MacBook-Pro:~ CamlBois$ ');
+          caret = term.html().length;
+          placeCaretAtEnd( document.getElementById("js-terminal") );
+          return false;
+        }
+    });
+
+
+    </script>
+
   </body>
 </html>
