@@ -206,11 +206,12 @@
 
     var term = $('#js-terminal');
     var caret;
-    var prompts = ['about','help','clear'];
+    var prompts = ['about','help','clear', 'load vr'];
 
 
     var about_prompt = "\nAbout\nCUVR is the newest breed of project team. We are super dope.\n";
     var help_prompt = "\nHELP\nBio - A list of EBoard Bios.\nAbout - About cuvr.\n"
+    var loading_prompt = "... loading ...\n";
 
 
     function placeCaretAtEnd(el) {
@@ -234,7 +235,7 @@
     function getInput(){
       var text = term.html();
       var input = text.substring(caret);
-      return input;
+      return input.toLowerCase();
     }
 
     $(document).ready(function(){
@@ -262,6 +263,10 @@
                   break;
               case 'clear':
                   term.html('');
+                  break;
+              case 'load vr':
+                  term.append(loading_prompt);
+                  window.location='vr.html';
                   break;
               default:
                   break;
