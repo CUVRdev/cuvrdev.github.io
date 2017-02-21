@@ -9,8 +9,7 @@
         <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
   </head>
   <body>
-
-      <pre class="flex-center">
+    <div class="flex-center">
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="449" height="40">
       <path d="M 2.878906 13.319336 L 2.878906 8.678711 Q 2.878906 7.813965 3.313965 7.131836 Q 3.802734 6.412109 4.705078 6.412109 L 6.729980 6.412109 L 6.729980 7.335938 L 4.705078 7.335938 Q 4.227051 7.335938 3.982666 7.674316 Q 3.738281 8.012695 3.738281 8.678711 L 3.738281 13.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
       <path d="M 2.878906 26.319336 L 2.878906 12.300781 L 3.738281 12.300781 L 3.738281 26.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
@@ -195,7 +194,12 @@
       <path d="M 433.892578 7.335938 L 433.892578 6.412109 L 440.729980 6.412109 L 440.729980 7.335938 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
       <path d="M 443.878906 13.319336 L 443.878906 8.678711 Q 443.878906 8.001953 443.631836 7.674316 Q 443.390137 7.335938 442.912109 7.335938 L 440.892578 7.335938 L 440.892578 6.412109 L 442.912109 6.412109 Q 443.814453 6.412109 444.303223 7.131836 Q 444.738281 7.776367 444.738281 8.678711 L 444.738281 13.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
       </svg>
-<div id="js-terminal" class="terminal" contenteditable="true"></div></pre>
+
+      <pre>  
+      <div id="js-terminal" class="terminal" contenteditable="true"></div>
+      </pre>
+
+    </div>
 
 
     <script>
@@ -234,7 +238,8 @@
     }
 
     $(document).ready(function(){
-      term.text('Last login: Tue Jan 24 23:17:35 on ttys000\nCUVRdev-MacBook-Pro:~ CamlBois$ ');
+      var date = '' + new Date();
+      term.text('Last login: ' + date.substring(0, date.length - 15) + ' on ttys000\nCUVRdev-MacBook-Pro:~ CamlBois$ ');
       placeCaretAtEnd( document.getElementById("js-terminal") );
       caret = term.html().length;
     });
