@@ -280,6 +280,15 @@
         }
     });
 
+    term.on('keydown', function(e) {
+      if (e.keyCode == 8) {
+        var last = term.html().substring(term.html().length - 10);
+        if (last == "CamlBois$ ") {
+          return false;
+        }
+      }
+    });
+
 
     </script>
 
