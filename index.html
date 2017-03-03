@@ -206,12 +206,13 @@
 
     var term = $('#js-terminal');
     var caret;
-    var prompts = ['about','help','clear', 'load vr'];
+    var prompts = ['about','help','clear', 'bio', 'load vr'];
 
 
-    var about_prompt = "\nAbout\nCUVR is the newest breed of project team. We are super dope.\n";
-    var help_prompt = "\nHELP\nBio - A list of EBoard Bios.\nAbout - About cuvr.\n"
+    var about_prompt = "\n\nAbout\nCUVR is the newest breed of project team. We are super dope.\n\n";
+    var help_prompt = "\n\nHELP\nBio - A list of EBoard Bios.\nAbout - About cuvr.\nLoad VR - Load virtual reality.\nClear - Clear terminal prompt.\n\n";
     var loading_prompt = "... loading ...\n";
+    var bio_prompt = "\n\n-- Executive Board Bios --\n\nPresident -- Michael Gingras\nVice President -- Brandon Walker\nTreasurer -- Andrew Grossfeld\nSecretary -- Brendan Elliott\n\n";
 
 
     function placeCaretAtEnd(el) {
@@ -238,15 +239,40 @@
       return input.toLowerCase();
     }
 
+    function animate_help() {
+      var duration = 300;
+
+      ['h', 'e', 'l', 'p', 'enter'].forEach(function (d, i) {
+
+        var delay = duration * i;
+
+        if (d == "enter") {
+          setTimeout(function() {
+            var e = $.Event('keypress');
+            e.keyCode = 13; e.which = 13;
+            term.trigger(e);
+          }, delay);
+        }
+        else {
+          setTimeout(function() {
+            term.append(d);
+          }, delay);
+        }
+
+      });
+    }
+
     $(document).ready(function(){
       var date = '' + new Date();
-      term.text('Last login: ' + date.substring(0, date.length - 15) + ' on ttys000\nCUVRdev-MacBook-Pro:~ CamlBois$ ');
+      term.text('Last login: ' + date.substring(0, date.length - 15) + ' on ttys000\nCUVRdev-MacBook-Pro:~ dev$ ');
       placeCaretAtEnd( document.getElementById("js-terminal") );
       caret = term.html().length;
-    });
 
+      var animation = setTimeout(animate_help, 5000);
 
-    term.on("keypress", function(e) {
+      term.on("keypress", function(e) {
+        clearTimeout(animation);
+
         if (e.keyCode == 13) {
           var input = getInput();
 
@@ -264,6 +290,9 @@
               case 'clear':
                   term.html('');
                   break;
+              case 'bio':
+                  term.append(bio_prompt);
+                  break;
               case 'load vr':
                   term.append(loading_prompt);
                   window.location='vr.html';
@@ -273,22 +302,24 @@
             }
           }
 
-          term.append('CUVRdev-MacBook-Pro:~ CamlBois$ ');
+          term.append('CUVRdev-MacBook-Pro:~ dev$ ');
           caret = term.html().length;
           placeCaretAtEnd( document.getElementById("js-terminal") );
           return false;
         }
-    });
+      });
 
-    term.on('keydown', function(e) {
-      if (e.keyCode == 8) {
-        var last = term.html().substring(term.html().length - 10);
-        if (last == "CamlBois$ ") {
-          return false;
+      term.on('keydown', function(e) {
+        clearTimeout(animation);
+
+        if (e.keyCode == 8) {
+          var last = term.html().substring(term.html().length - 5);
+          if (last == "dev$ ") {
+            return false;
+          }
         }
-      }
+      });
     });
-
 
     </script>
 
