@@ -8,7 +8,7 @@
         <!-- <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script> -->
         <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
   </head>
-  <body spellcheck="false">
+  <body>
     <div class="flex-center">
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="449" height="40">
       <path d="M 2.878906 13.319336 L 2.878906 8.678711 Q 2.878906 7.813965 3.313965 7.131836 Q 3.802734 6.412109 4.705078 6.412109 L 6.729980 6.412109 L 6.729980 7.335938 L 4.705078 7.335938 Q 4.227051 7.335938 3.982666 7.674316 Q 3.738281 8.012695 3.738281 8.678711 L 3.738281 13.319336 Z " fill="rgb(0, 0, 0)" fill-opacity="1.000000" />
@@ -262,11 +262,6 @@
       });
     }
 
-    function scroll_fix() {
-      var scrollHeight = term.prop('scrollHeight');
-      if (scrollHeight > 362) { term.scrollTop(scrollHeight); }
-    }
-
     $(document).ready(function(){
       var date = '' + new Date();
       term.text('Last login: ' + date.substring(0, date.length - 15) + ' on ttys000\nCUVRdev-MacBook-Pro:~ dev$ ');
@@ -300,7 +295,6 @@
                   break;
               case 'full site':
                   term.append(loading_prompt);
-                  window.location='home.html';
                   break;
               case 'load vr':
                   term.append(loading_prompt);
@@ -314,7 +308,6 @@
           term.append('CUVRdev-MacBook-Pro:~ dev$ ');
           caret = term.html().length;
           placeCaretAtEnd( document.getElementById("js-terminal") );
-          scroll_fix();
           return false;
         }
       });
